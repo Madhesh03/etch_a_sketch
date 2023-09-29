@@ -1,26 +1,43 @@
-const container= document.getElementById('container');
+/* eslint-disable no-alert */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-param-reassign */
+const container = document.querySelector('.container');
 
-let n = prompt("enter a number within 100");
-
-
-
-console.log(hi(n));
-
-function hi(n){
-    for(j=0;j<n;j++){
-        const content = document.createElement('div');
-        content.classList.add(`contentof${j}`);
-        container.appendChild(content);
-        for(i=0;i <= n-1;i++){
-            let k=j;
-            let rap = document.querySelector(`.contentof${k}`);
-            let helo = document.createElement('div');
-            helo.classList.add('hi');
-            rap.appendChild(helo);
-        }
-    }
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
 }
 
+function generateGrid(gridSize) {
+  for (let i = 0; i < gridSize; i++) {
+    const div = document.createElement('div');
+    div.classList.add('row');
+    container.appendChild(div);
+    for (let j = 0; j < gridSize; j++) {
+      const div2 = document.createElement('div');
+      div.appendChild(div2);
+      div2.classList.add('square');
+    }
+  }
+}
 
+function colorSquares() {
+  const squares = document.querySelectorAll('.square');
+  squares.forEach((square) => {
+    square.addEventListener('mouseover', () => {
+      square.style.backgroundColor = `rgb(${getRandomInt(256)}, ${getRandomInt(
+        256,
+      )}, ${getRandomInt(256)})`;
+    });
+  });
+}
 
+const button = document.querySelector('button');
+button.addEventListener('click', () => {
+  const rows = document.querySelectorAll('.row');
+  rows.forEach((row) => container.removeChild(row));
+  generateGrid(prompt('What size?'));
+  colorSquares();
+});
 
+generateGrid(16);
+colorSquares();
